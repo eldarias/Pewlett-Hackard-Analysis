@@ -1,3 +1,4 @@
+-- CHALLENGE # 1
 -- Challenge#1 - Steps 1-6 - Retreive data from two tables and export filtered data to a new one:
 SELECT e.emp_no,
 	e.first_name,
@@ -40,3 +41,32 @@ ORDER BY count DESC;
 
 -- Challenge#1 - Step 21 - View Table:
 SELECT * FROM retiring_titles;
+
+SELECT sum(count) FROM retiring_titles;
+
+
+
+
+-- CHALLENGE # 2
+-- Challenge#2 - Steps 1 - 
+SELECT DISTINCT ON (t.emp_no)
+	e.emp_no,
+	e.first_name,
+	e.last_name,
+	e.birth_date,
+	de.from_date,
+	de.to_date,
+	t.title
+INTO mentorship_eligibility
+FROM employees AS e
+INNER JOIN dept_emp AS de
+ON e.emp_no = de.emp_no
+INNER JOIN titles AS t
+ON e.emp_no = t.emp_no
+WHERE t.to_date = '9999-01-01' AND (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31')
+ORDER BY t.emp_no;
+
+
+-- NOTES:
+-- select * from mentorship_eligibility;
+-- DROP TABLE mentorship_eligibility
